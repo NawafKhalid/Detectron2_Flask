@@ -7,7 +7,7 @@
 - PyTorch ≥ 1.6 and [torchvision](https://github.com/pytorch/vision/).
 - OpenCV is optional and needed by demo and visualization
 
-NOTE: requirements.txt file should contains all the requirements except Detectron2 where it should be installed from the source. 
+NOTE: requirements.txt file should contain all the requirements except Detectron2 where it must be installed from the source.  
 
 ### Build Detectron2 from Source
 
