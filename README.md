@@ -134,4 +134,19 @@ to match your local CUDA installation, or install a different version of CUDA to
 </details>
 
 
+### Test JASON request
+post in /predict-image
 
+```
+{
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSKvPhv-QATOz9jSQBWr1TFeYDrMCWrYsJ60w&usqp=CAU"
+}
+
+```
+
+### Expected output
+
+```
+
+
+```
