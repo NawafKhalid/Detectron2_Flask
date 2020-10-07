@@ -139,7 +139,7 @@ post in /predict-image
 
 ```
 {
-    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSKvPhv-QATOz9jSQBWr1TFeYDrMCWrYsJ60w&usqp=CAU"
+    "imageUrl": "https://farm3.staticflickr.com/2495/3911369005_159d9b4fdc_z.jpg"
 }
 
 ```
@@ -147,6 +147,46 @@ post in /predict-image
 ### Expected output
 
 ```
-
+{
+    "The model predicted: ": 4,
+    "classeslist": [
+        "dog",
+        "cat",
+        "chair",
+        "bed"
+    ],
+    "pred_boxes": [
+        [
+            109.8484878540039,
+            71.2451171875,
+            267.9945983886719,
+            249.67918395996094
+        ],
+        [
+            200.6732940673828,
+            98.23422241210938,
+            598.4090576171875,
+            392.3119812011719
+        ],
+        [
+            440.72467041015625,
+            0.10005643963813782,
+            569.1564331054688,
+            102.75098419189453
+        ],
+        [
+            83.62666320800781,
+            82.82098388671875,
+            600.0,
+            397.998046875
+        ]
+    ],
+    "scores": [
+        0.9974145889282227,
+        0.9692952632904053,
+        0.5767176747322083,
+        0.5673097372055054
+    ]
+}
 
 ```
