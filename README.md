@@ -24,39 +24,54 @@ Click each issue for its solutions:
 
 <details>
 <summary>
-Undefined symbols that contains TH,aten,torch,caffe2; Missing torch dynamic libraries; Segmentation fault immediately when using detectron2.
+ImportError: libtorchcpu.so: cannot open shared object file: No such file or directory
 </summary>
 <br/>
 
-This usually happens when detectron2 or torchvision is not
-compiled with the version of PyTorch you're running.
+This usually happens when you use old version of PyTorch < 1.6.
+Please see [pytorch.org](http://pytorch.org) to find the latest versions.
 
-If the error comes from a pre-built torchvision, uninstall torchvision and pytorch and reinstall them
-following [pytorch.org](http://pytorch.org). So the versions will match.
-
-If the error comes from a pre-built detectron2, check [release notes](https://github.com/facebookresearch/detectron2/releases)
-to see the corresponding pytorch version required for each pre-built detectron2.
-Or uninstall and reinstall the correct pre-built detectron2.
-
-If the error comes from detectron2 or torchvision that you built manually from source,
-remove files you built (`build/`, `**/*.so`) and rebuild it so it can pick up the version of pytorch currently in your environment.
-
-If you cannot resolve this problem, please include the output of `gdb -ex "r" -ex "bt" -ex "quit" --args python -m detectron2.utils.collect_env`
-in your issue.
 </details>
 
 <details>
 <summary>
-Undefined C++ symbols (e.g. `GLIBCXX`) or C++ symbols not found.
+ImportError: libcusparse.so.10.0: cannot open shared object file: No such file or directory
 </summary>
 <br/>
-Usually it's because the library is compiled with a newer C++ compiler but run with an old C++ runtime.
 
-This often happens with old anaconda.
-Try `conda update libgcc`. Then rebuild detectron2.
+Probably because CUDA version is not compatible with PyTorch version.
 
-The fundamental solution is to run the code with proper C++ runtime.
-One way is to use `LD_PRELOAD=/path/to/libstdc++.so`.
+<table class="docutils"><tbody><th width="80"> CUDA </th><th valign="bottom" align="left" width="100">torch 1.6</th><th valign="bottom" align="left" width="100">torch 1.5</th><th valign="bottom" align="left" width="100">torch 1.4</th> <tr><td align="left">10.2</td><td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu102/torch1.6/index.html
+</code></pre> </details> </td> <td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu102/torch1.5/index.html
+</code></pre> </details> </td> <td align="left"> </td> </tr> <tr><td align="left">10.1</td><td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.6/index.html
+</code></pre> </details> </td> <td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.5/index.html
+</code></pre> </details> </td> <td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.4/index.html
+</code></pre> </details> </td> </tr> <tr><td align="left">10.0</td><td align="left"> </td> <td align="left"> </td> <td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu100/torch1.4/index.html
+</code></pre> </details> </td> </tr> <tr><td align="left">9.2</td><td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu92/torch1.6/index.html
+</code></pre> </details> </td> <td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu92/torch1.5/index.html
+</code></pre> </details> </td> <td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cu92/torch1.4/index.html
+</code></pre> </details> </td> </tr> <tr><td align="left">cpu</td><td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.6/index.html
+</code></pre> </details> </td> <td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.5/index.html
+</code></pre> </details> </td> <td align="left"><details><summary> install </summary><pre><code>python -m pip install detectron2 -f \
+  https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.4/index.html
+  </code></pre> </details> </td> </tr></tbody></table>
+
+You can use 
+```
+from torch.utils.collect_env import main
+main()
+``` 
 
 </details>
 
@@ -166,16 +181,3 @@ Detectron2 is continuously built on windows with [CircleCI](https://app.circleci
 However we do not provide official support for it.
 PRs that improves code compatibility on windows are welcome.
 </details>
-
-<details>
-<summary>
-ONNX conversion segfault after some "TraceWarning".
-</summary>
-<br/>
-The ONNX package is compiled with a too old compiler.
-
-Please build and install ONNX from its source code using a compiler
-whose version is closer to what's used by PyTorch (available in `torch.__config__.show()`).
-</details>
-
-
