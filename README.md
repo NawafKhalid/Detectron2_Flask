@@ -67,29 +67,18 @@ Probably because CUDA version is not compatible with PyTorch version.
   https://dl.fbaipublicfiles.com/detectron2/wheels/cpu/torch1.4/index.html
   </code></pre> </details> </td> </tr></tbody></table>
 
-You can use 
-```
-from torch.utils.collect_env import main
-main()
-``` 
+You can use ` from torch.utils.collect_env import main main() ` to see your environment PyTorch and torchvision version, CUDA version, and versions of relevant libraries or `python -m detectron2.utils.collect_env`
 
 </details>
 
 <details>
 <summary>
-"nvcc not found" or "Not compiled with GPU support" or "Detectron2 CUDA Compiler: not available".
+GPU problems
 </summary>
 <br/>
-CUDA is not found when building detectron2.
-You should make sure
 
-```
-python -c 'import torch; from torch.utils.cpp_extension import CUDA_HOME; print(torch.cuda.is_available(), CUDA_HOME)'
-```
+Most models can run inference (but not training) without GPU support.
 
-print `(True, a directory with cuda)` at the time you build detectron2.
-
-Most models can run inference (but not training) without GPU support. To use CPUs, set `MODEL.DEVICE='cpu'` in the config.
 </details>
 
 <details>
@@ -145,39 +134,4 @@ to match your local CUDA installation, or install a different version of CUDA to
 </details>
 
 
-<details>
-<summary>
-C++ compilation errors from NVCC
-</summary>
 
-1. NVCC version has to match the CUDA version of your PyTorch.
-
-2. The combination of NVCC and GCC you use is incompatible. You need to change one of their versions.
-   See [here](https://gist.github.com/ax3l/9489132) for some valid combinations.
-
-The CUDA/GCC version used by PyTorch can be found by `print(torch.__config__.show())`.
-</details>
-
-
-<details>
-<summary>
-"ImportError: cannot import name '_C'".
-</summary>
-<br/>
-Please build and install detectron2 following the instructions above.
-
-Or, if you are running code from detectron2's root directory, `cd` to a different one.
-Otherwise you may not import the code that you installed.
-</details>
-
-
-<details>
-<summary>
-Any issue on windows.
-</summary>
-<br/>
-
-Detectron2 is continuously built on windows with [CircleCI](https://app.circleci.com/pipelines/github/facebookresearch/detectron2?branch=master).
-However we do not provide official support for it.
-PRs that improves code compatibility on windows are welcome.
-</details>
