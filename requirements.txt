@@ -1,0 +1,7 @@
+numpy==1.19.1
+Flask_Cors==3.0.9
+torchvision==0.7.0+cu101
+Flask==1.1.2
+torch==1.6.0+cu101
+requests==2.24.0
+detectron2==0.2.1+cu101
